@@ -100,7 +100,8 @@ func connect(ctx context.Context) (*http.Client, *oauth2.Token, error) {
 breakout:
 	d := oauth2.SetAuthURLParam("code_verifier", "challenge")
 	e := oauth2.SetAuthURLParam("grant_type", "authorization_code")
-	tok, err := conf.Exchange(ctx, code, c, d, e)
+	f := oauth2.SetAuthURLParam("client_id", clientID)
+	tok, err := conf.Exchange(ctx, code, c, d, e, f)
 	if err != nil {
 		return nil, nil, err
 	}
