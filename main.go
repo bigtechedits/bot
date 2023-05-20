@@ -37,11 +37,11 @@ type wikiEvent struct {
 
 type eventEntry struct {
 	addr     netip.Addr
+	ts       time.Time
 	ev       *wikiEvent
 	provider string
 	oldID    uint64
 	newID    uint64
-	ts       time.Time
 }
 
 func main() {
@@ -159,8 +159,8 @@ func handleEvent(ctx context.Context, client *http.Client, token *oauth2.Token,
 type displaytitle struct {
 	Parse struct {
 		Title        string `json:"title"`
-		Pageid       int    `json:"pageid"`
 		Displaytitle string `json:"displaytitle"`
+		Pageid       int    `json:"pageid"`
 	} `json:"parse"`
 }
 
