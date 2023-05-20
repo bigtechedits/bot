@@ -18,10 +18,10 @@ var (
 )
 
 type ipMappings struct {
-	// The majority of access will be read access. But once every while we need to update the
-	// map.
-	mu       sync.RWMutex
 	mappings *ip2asn.Map
+	// The majority of access will be read access. But once every while we need to update the
+	// map
+	mu sync.RWMutex
 }
 
 func init() {
