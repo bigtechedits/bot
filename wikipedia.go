@@ -14,7 +14,7 @@ import (
 // from the Wikipedia recent changes stream.
 func handleRecentChanges(ctx context.Context, events chan *wikiEvent) error {
 	go func() {
-		var lastID string
+		var lastID []byte
 		var c *sse.Client
 		bufferPow := 18
 
@@ -23,13 +23,13 @@ func handleRecentChanges(ctx context.Context, events chan *wikiEvent) error {
 		for {
 			c = sse.NewClient("https://stream.wikimedia.org/v2/stream/recentchange",
 				sse.ClientMaxBufferSize(1<<bufferPow))
-			c.EventID = lastID
+			c.LastEventID.Store(lastID)
 			if err := c.SubscribeWithContext(ctx, "", func(msg *sse.Event) {
 				if len(msg.Data) == 0 {
 					return
 				}
 				var ev wikiEvent
-				lastID = string(msg.ID)
+				lastID = msg.ID
 				err := json.Unmarshal(msg.Data, &ev)
 				if err != nil {
 					log.Printf("Failed to unmarshal data: %v\n%v\n", err, msg.Data)
