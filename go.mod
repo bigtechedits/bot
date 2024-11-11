@@ -6,7 +6,7 @@ require (
 	github.com/bradfitz/ip2asn v0.0.0-20220725205325-1069e332e707
 	github.com/r3labs/sse/v2 v2.10.0
 	golang.org/x/net v0.28.0
-	golang.org/x/oauth2 v0.22.0
+	golang.org/x/oauth2 v0.24.0
 )
 
 require (
