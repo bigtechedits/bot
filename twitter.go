@@ -150,9 +150,9 @@ func tweetChange(ctx context.Context, client *http.Client, token *oauth2.Token,
 	} else {
 		title = entry.ev.Title
 	}
-	if len(title) > 80 {
-		log.Printf("shortening title: %v\n", entry.ev)
-		title = fmt.Sprintf("%s..", entry.ev.Title[:76])
+	if len(title) > 76 {
+		log.Printf("shortening title: %#v\n", entry.ev)
+		title = fmt.Sprintf("%s..", title[:76])
 	}
 
 	tweet := fmt.Sprintf("{\"text\": \"%s entry \\\"%s\\\" edited anonymously from #%s %s\"}",
