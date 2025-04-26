@@ -1,6 +1,6 @@
 module github.com/bigtechedits/bot
 
-go 1.19
+go 1.22.12
 
 require (
 	github.com/bradfitz/ip2asn v0.0.0-20220725205325-1069e332e707
@@ -10,6 +10,6 @@ require (
 )
 
 require (
-	go4.org/mem v0.0.0-20220726221520-4f986261bf13 // indirect
+	go4.org/mem v0.0.0-20240501181205-ae6ca9944745 // indirect
 	gopkg.in/cenkalti/backoff.v1 v1.1.0 // indirect
 )
