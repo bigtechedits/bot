@@ -54,7 +54,7 @@ func connect(ctx context.Context) (*http.Client, *oauth2.Token, error) {
 		Scopes:       []string{"tweet.write", "offline.access", "tweet.read", "users.read"},
 		Endpoint: oauth2.Endpoint{
 			AuthURL:  "https://twitter.com/i/oauth2/authorize",
-			TokenURL: "https://api.twitter.com/2/oauth2/token",
+			TokenURL: "https://api.x.com/2/oauth2/token",
 		},
 	}
 	a := oauth2.SetAuthURLParam("code_challenge", "challenge")
@@ -88,6 +88,7 @@ func connect(ctx context.Context) (*http.Client, *oauth2.Token, error) {
 			case errors.Is(err, os.ErrNotExist):
 				// Avoid a busy loop reading the file with the auth code
 				time.Sleep(10 * time.Second)
+				log.Printf("trying to read %s again ...\n", authCodeFile)
 				continue
 			case err == nil:
 				code = string(content)
@@ -98,6 +99,7 @@ func connect(ctx context.Context) (*http.Client, *oauth2.Token, error) {
 		}
 	}
 breakout:
+	code = strings.TrimSpace(code)
 	d := oauth2.SetAuthURLParam("code_verifier", "challenge")
 	e := oauth2.SetAuthURLParam("grant_type", "authorization_code")
 	f := oauth2.SetAuthURLParam("client_id", clientID)
@@ -181,9 +183,7 @@ func tweetChange(ctx context.Context, client *http.Client, token *oauth2.Token,
 		if err != nil {
 			log.Printf("Failed to read body from failed tweet: %v", err)
 		}
-		log.Printf("Response of failed (code %d) failure: %s\ttweet: %s", r.StatusCode,
-			string(failure), tweet)
-		return fmt.Errorf("tweet failed with error code %d", r.StatusCode)
+		return fmt.Errorf("tweet failed with error code %d: %s", r.StatusCode, failure)
 	}
 	return nil
 }
