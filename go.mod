@@ -1,6 +1,6 @@
 module github.com/bigtechedits/bot
 
-go 1.23.0
+go 1.24.11
 
 require (
 	github.com/bradfitz/ip2asn v0.0.0-20220725205325-1069e332e707
