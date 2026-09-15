@@ -53,7 +53,7 @@ func connect(ctx context.Context) (*http.Client, *oauth2.Token, error) {
 		ClientSecret: clientSecret,
 		Scopes:       []string{"tweet.write", "offline.access", "tweet.read", "users.read"},
 		Endpoint: oauth2.Endpoint{
-			AuthURL:  "https://twitter.com/i/oauth2/authorize",
+			AuthURL:  "https://x.com/i/oauth2/authorize",
 			TokenURL: "https://api.x.com/2/oauth2/token",
 		},
 	}
