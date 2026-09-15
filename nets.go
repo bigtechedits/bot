@@ -27,58 +27,109 @@ type ipMappings struct {
 func init() {
 	// List of ASNs used by big tech cloud providers.
 	asn2provider = make(map[int]string)
-	asn2provider[396982] = "Google"
-	asn2provider[139190] = "Google"
-	asn2provider[139070] = "Google"
-	asn2provider[15169] = "Google"
-	asn2provider[19527] = "Google"
-	asn2provider[36040] = "Google"
-	asn2provider[43515] = "Google"
-	asn2provider[16550] = "Google"
-	asn2provider[36385] = "Google"
-	asn2provider[45566] = "Google"
-	asn2provider[54113] = "Fastly"
-	asn2provider[132591] = "Tencent"
-	asn2provider[132203] = "Tencent"
-	asn2provider[45090] = "Tencent"
-	asn2provider[13238] = "Yandex"
-	asn2provider[208722] = "Yandex"
-	asn2provider[200350] = "Yandex"
-	asn2provider[14061] = "DigitalOcean"
-	asn2provider[62567] = "DigitalOcean"
-	asn2provider[133165] = "DigitalOcean"
-	asn2provider[135340] = "DigitalOcean"
-	asn2provider[200130] = "DigitalOcean"
-	asn2provider[201229] = "DigitalOcean"
-	asn2provider[202018] = "DigitalOcean"
-	asn2provider[202109] = "DigitalOcean"
-	asn2provider[393406] = "DigitalOcean"
-	asn2provider[394362] = "DigitalOcean"
-	asn2provider[46652] = "DigitalOcean"
-	asn2provider[24429] = "Alibaba"
-	asn2provider[45102] = "Alibaba"
-	asn2provider[37963] = "Alibaba"
-	asn2provider[55967] = "Baidu"
-	asn2provider[38627] = "Baidu"
-	asn2provider[8075] = "Microsoft"
-	asn2provider[8068] = "Microsoft"
-	asn2provider[8069] = "Microsoft"
-	asn2provider[14618] = "Amazon"
-	asn2provider[16509] = "Amazon"
-	asn2provider[36263] = "Amazon"
-	asn2provider[33517] = "Oracle"
-	asn2provider[7160] = "Oracle"
-	asn2provider[15179] = "Oracle"
-	asn2provider[90] = "Oracle"
-	asn2provider[31898] = "Oracle"
-	asn2provider[24940] = "Hetzner"
-	asn2provider[213230] = "Hetzner"
-	asn2provider[212317] = "Hetzner"
-	asn2provider[215859] = "Hetzner"
-	asn2provider[35540] = "OVH"
-	asn2provider[16276] = "OVH"
-	asn2provider[24189] = "IBM"
-	asn2provider[10337] = "IBM"
+	providers := map[string][]int{
+		"Google": {
+			15169,
+			19527,
+			36040,
+			36385,
+			43515,
+			45566,
+			16550,
+			139070,
+			139190,
+			394089,
+			396982,
+		},
+		"Microsoft": {
+			8075,
+			8068,
+			8069,
+		},
+		"Amazon": {
+			8987,
+			14618,
+			16509,
+			36263,
+			399834,
+		},
+		"Cloudflare": {
+			13335,
+		},
+		"Akamai": {
+			12222,
+			16625,
+		},
+		"DigitalOcean": {
+			14061,
+			46652,
+			62567,
+			133165,
+			135340,
+			200130,
+			201229,
+			202018,
+			202109,
+			393406,
+			394362,
+		},
+		"Oracle": {
+			90,
+			7160,
+			15179,
+			31898,
+			33517,
+		},
+		"Apple": {
+			714,
+			6185,
+		},
+		"Meta": {
+			32934,
+		},
+		"Hetzner": {
+			24940,
+			212317,
+			213230,
+			215859,
+		},
+		"Tencent": {
+			45090,
+			132203,
+			132591,
+		},
+		"Alibaba": {
+			24429,
+			37963,
+			45102,
+		},
+		"OVH": {
+			16276,
+			35540,
+		},
+		"Yandex": {
+			13238,
+			200350,
+			208722,
+		},
+		"Baidu": {
+			38627,
+			55967,
+		},
+		"Fastly": {
+			54113,
+		},
+		"IBM": {
+			10337,
+			24189,
+		},
+	}
+
+	for provider, asns := range providers {
+		for _, asn := range asns {
+			asn2provider[asn] = provider
+		}
+	}
 }
 
 func downloadIPToASN() (string, error) {
