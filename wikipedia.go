@@ -37,10 +37,10 @@ func handleRecentChanges(ctx context.Context, events chan *wikiEvent) error {
 			c.Connection.Transport = &http.Transport{
 				Proxy:               http.ProxyFromEnvironment,
 				TLSHandshakeTimeout: 10 * time.Second,
-				Dial: (&net.Dialer{
+				DialContext: (&net.Dialer{
 					Timeout:   10 * time.Second,
 					KeepAlive: 10 * time.Second,
-				}).Dial,
+				}).DialContext,
 			}
 
 			c.ReconnectNotify = func(err error, next time.Duration) {
