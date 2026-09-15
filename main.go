@@ -88,7 +88,8 @@ func main() {
 }
 
 func handleEvent(ctx context.Context, client *http.Client, token *oauth2.Token,
-	events chan *wikiEvent) {
+	events chan *wikiEvent,
+) {
 	eventStore := make(map[string]eventEntry)
 
 	ticker := time.NewTicker(1 * time.Minute)

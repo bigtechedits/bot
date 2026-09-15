@@ -119,7 +119,8 @@ func verifyDiffURL(url string) error {
 
 // tweetChange posts a tweet about a wikipedia recent change event.
 func tweetChange(ctx context.Context, client *http.Client, token *oauth2.Token,
-	entry eventEntry) error {
+	entry eventEntry,
+) error {
 	uri, err := url.ParseRequestURI(entry.ev.Meta.URI)
 	if err != nil {
 		return err
